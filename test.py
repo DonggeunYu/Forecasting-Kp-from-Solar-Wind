@@ -1,2 +1,4 @@
-a = "1.0332e+05"
-print(float(a))
+import torch
+a = 1.49999
+b = torch.tensor(a).round()
+print(b)
