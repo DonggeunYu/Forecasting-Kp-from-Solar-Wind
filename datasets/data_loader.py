@@ -45,9 +45,7 @@ def solar_wind():
             iterations += 1
             temp_arr = []
             for j, item in enumerate(line):
-                if item == '':
-                    zero = 1
-                else:
+                if item != '':
                     temp_arr.append(float(item))
                     # print(temp_arr)
 
