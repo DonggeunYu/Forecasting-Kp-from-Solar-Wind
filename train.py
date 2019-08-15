@@ -62,9 +62,9 @@ def model_save(epoch, save_path, model):
     print("Save Model")
 
 if __name__ == "__main__":
-    nepoch = 10
-    nepoch_summary = 2
-    nepoch_model = 2
+    nepoch = 1000
+    nepoch_summary = 10
+    nepoch_model = 100
     save_path = "./output/"
     summary = SummaryWriter()
 
