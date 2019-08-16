@@ -3,20 +3,26 @@ import numpy as np
 import torch.nn as nn
 from torch.autograd import Variable
 from datasets import train_datasets
-from model import dense_model
+from model.dense_model import Model
 from datasets import test_datasets
 from tensorboardX import SummaryWriter
 
-def train(nepoch, nepoch_summary, nepoch_model, save_path):
+def train(learning_rate, nepoch, nepoch_summary, nepoch_model, save_path, load_path):
     train_loader = train_datasets()
 
-    model = dense_model.Model()
+    model = Model()
 
-    criterion = nn.MSELoss(size_average=True)
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
+    criterion = nn.MSELoss(reduction='mean')
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
+    sepoch = 1
 
-    for epoch in range(nepoch):
+    if load_path != "":
+        model, learning_rate, optimizer, sepoch = load_model(load_path, model, optimizer)
+        print("Load model: ", load_path)
+        sepoch += 1
+
+    for epoch in range(sepoch, nepoch + 1):
         for i, data in enumerate(train_loader):
             inputs, lables = data
             inputs, lables = Variable(inputs).float(), Variable(lables).float()
@@ -31,9 +37,9 @@ def train(nepoch, nepoch_summary, nepoch_model, save_path):
             optimizer.step()
         accuracy(model)
         if epoch % nepoch_summary == 0:  # 매 10 iteration마다
-            summary_write(epoch, loss)
+            write_summary(epoch, loss)
         if epoch % nepoch_model == 0:
-            model_save(epoch, save_path, model)
+            save_model(model, optimizer, learning_rate, epoch, save_path)
 
 
 
@@ -50,22 +56,41 @@ def accuracy(model):
     y_pred = y_pred.round()
 
     loss = torch.sqrt(criterion(y_pred, lables))
-    print('Test Accuracy:', loss)
+    print('Test Accuracy:', loss.item())
 
-def summary_write(epoch, loss):
+def write_summary(epoch, loss):
     summary.add_scalar('loss/loss', loss.item(), epoch)
     print("Write Summary")
 
-def model_save(epoch, save_path, model):
-    save_path = save_path + 'epoch' + str(epoch) + '.pth'
-    torch.save(model.state_dict(), save_path)
+def load_model(load_path, model, optimizer):
+    load_dict = torch.load(load_path)
+    model.load_state_dict(load_dict['model'])
+    optimizer.load_state_dict(load_dict['optimizer'])
+    learning_rate = load_dict['learning_rate']
+    epoch = load_dict['epoch']
+
+    print('Load model: ', load_path)
+
+    return model, optimizer, learning_rate, epoch
+
+
+def save_model(model, optimizer, learning_rate, epoch, save_path):
+    save_path = save_path + 'iteration_' + str(epoch) + '.pth'
+    torch.save({'model': model.state_dict(),
+                'optimizer': optimizer,
+                'learning_rate': learning_rate,
+                'epoch': epoch}, save_path)
     print("Save Model")
 
 if __name__ == "__main__":
-    nepoch = 1000
+    learning_rate = 0.0001
+
+    nepoch = 10000
     nepoch_summary = 10
-    nepoch_model = 100
+    nepoch_model = 1
+
     save_path = "./output/"
+    load_path = ""
     summary = SummaryWriter()
 
-    train(nepoch, nepoch_summary, nepoch_model, save_path)
+    train(learning_rate, nepoch, nepoch_summary, nepoch_model, save_path, load_path)

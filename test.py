@@ -52,7 +52,9 @@ def load_data(file_path):
 
 def load_model(file_path):
     model = Model()
-    model.load_state_dict(torch.load(file_path))
+
+    load_dict = torch.load(file_path)
+    model.load_state_dict(load_dict['model'])
 
     return model
 
@@ -81,7 +83,7 @@ if __name__ == "__main__":
     output = load_data("data/problem.csv")
     print('Load data')
 
-    model = load_model("output/epoch700.pth")
+    model = load_model("output/iteration_1.pth")
     print('Load model')
 
     y_pred = input_model(model, output)
