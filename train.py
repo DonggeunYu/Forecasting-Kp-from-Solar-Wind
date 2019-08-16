@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     nepoch = 10000
     nepoch_summary = 10
-    nepoch_model = 1
+    nepoch_model = 100
 
     save_path = "./output/"
     load_path = ""
