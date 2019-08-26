@@ -83,7 +83,7 @@ if __name__ == "__main__":
     output = load_data("data/problem.csv")
     print('Load data')
 
-    model = load_model("output/iteration_1.pth")
+    model = load_model("output/Download.pth")
     print('Load model')
 
     y_pred = input_model(model, output)
