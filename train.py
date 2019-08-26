@@ -86,8 +86,8 @@ if __name__ == "__main__":
     learning_rate = 0.0001
 
     nepoch = 10000
-    nepoch_summary = 10
-    nepoch_model = 100
+    nepoch_summary = 50
+    nepoch_model = 500
 
     save_path = "./output/"
     load_path = ""
