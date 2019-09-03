@@ -27,3 +27,5 @@ class Model(nn.Module):
         x = self.D3(F.relu(self.B3(self.L3(x))))
         x = self.D4(F.relu(self.B4(self.L4(x))))
         x = F.relu(self.L5(x))
+
+        return x

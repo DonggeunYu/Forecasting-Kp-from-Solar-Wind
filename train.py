@@ -32,6 +32,7 @@ def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model,
 
             y_pred = model(inputs)
 
+
             loss = criterion(y_pred, lables)
             print(epoch, i, loss.item())
 
