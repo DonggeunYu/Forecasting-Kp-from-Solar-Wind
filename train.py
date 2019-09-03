@@ -39,7 +39,7 @@ def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model,
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-        if epoch % nepoch_summary_a == a:
+        if epoch % nepoch_summary_a == 0:
            accuracy(epoch, model)
         if epoch % nepoch_summary == 0:  # 매 10 iteration마다
             write_summary(epoch, loss)
@@ -65,7 +65,7 @@ def accuracy(epoch, model):
     loss = torch.sqrt(criterion(y_pred, lables))
     print('Test Accuracy:', loss.item())
     
-    write_summary_a(epoch, loss)
+    write_summary_a(epoch, loss.item())
 
 def write_summary_a(epoch, loss):
     summary.add_scalar('Accuracy/Accuracy', loss, epoch)
