@@ -98,10 +98,10 @@ def save_model(model, optimizer, learning_rate, epoch, save_path):
 if __name__ == "__main__":
     learning_rate = 0.0001
 
-    nepoch = 10000
-    nepoch_summary_a = 10
-    nepoch_summary = 1
-    nepoch_model = 50
+    nepoch = 100000
+    nepoch_summary_a = 500
+    nepoch_summary = 100
+    nepoch_model = 1000
 
     save_path = "./output/"
     load_path = ""
