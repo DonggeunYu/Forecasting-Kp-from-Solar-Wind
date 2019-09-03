@@ -7,7 +7,7 @@ from model.dense_model import Model
 from datasets import test_datasets
 from tensorboardX import SummaryWriter
 
-def train(learning_rate, nepoch, nepoch_summary, nepoch_model, save_path, load_path):
+def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model, save_path, load_path):
     train_loader = train_datasets()
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -38,15 +38,16 @@ def train(learning_rate, nepoch, nepoch_summary, nepoch_model, save_path, load_p
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+        if epoch % nepoch_summary_a == a:
+           accuracy(epoch, model)
         if epoch % nepoch_summary == 0:  # 매 10 iteration마다
-            accuracy(model)
             write_summary(epoch, loss)
         if epoch % nepoch_model == 0:
             save_model(model, optimizer, learning_rate, epoch, save_path)
 
 
 
-def accuracy(model):
+def accuracy(epoch, model):
 
     criterion = nn.MSELoss()
 
@@ -62,9 +63,15 @@ def accuracy(model):
 
     loss = torch.sqrt(criterion(y_pred, lables))
     print('Test Accuracy:', loss.item())
+    
+    write_summary_a(epoch, loss)
+
+def write_summary_a(epoch, loss):
+    summary.add_scalar('Accuracy/Accuracy', loss, epoch)
+    print("Write Summary")
 
 def write_summary(epoch, loss):
-    summary.add_scalar('loss/loss', loss.item(), epoch)
+    summary.add_scalar('Loss/Loss', loss.item(), epoch)
     print("Write Summary")
 
 def load_model(load_path, model, optimizer):
@@ -91,11 +98,12 @@ if __name__ == "__main__":
     learning_rate = 0.0001
 
     nepoch = 10000
-    nepoch_summary = 50
-    nepoch_model = 500
+    nepoch_summary_a = 10
+    nepoch_summary = 1
+    nepoch_model = 50
 
     save_path = "./output/"
-    load_path = "./output/iteration_3000.pth"
+    load_path = ""
     summary = SummaryWriter()
 
-    train(learning_rate, nepoch, nepoch_summary, nepoch_model, save_path, load_path)
+    train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model, save_path, load_path)
