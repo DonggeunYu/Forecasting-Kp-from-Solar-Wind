@@ -21,6 +21,7 @@ def train(learning_rate, nepoch, nepoch_summary, nepoch_model, save_path, load_p
 
     if load_path != "":
         model, learning_rate, optimizer, sepoch = load_model(load_path, model, optimizer)
+        model.to(device)
         print("Load model: ", load_path)
         sepoch += 1
 
@@ -69,13 +70,13 @@ def write_summary(epoch, loss):
 def load_model(load_path, model, optimizer):
     load_dict = torch.load(load_path)
     model.load_state_dict(load_dict['model'])
-    optimizer.load_state_dict(load_dict['optimizer'])
+    optimizer.load_state_dict(load_dict['optimizer'].state_dict())
     learning_rate = load_dict['learning_rate']
     epoch = load_dict['epoch']
 
     print('Load model: ', load_path)
 
-    return model, optimizer, learning_rate, epoch
+    return model, learning_rate, optimizer, epoch
 
 
 def save_model(model, optimizer, learning_rate, epoch, save_path):
@@ -94,7 +95,7 @@ if __name__ == "__main__":
     nepoch_model = 500
 
     save_path = "./output/"
-    load_path = ""
+    load_path = "./output/iteration_3000.pth"
     summary = SummaryWriter()
 
     train(learning_rate, nepoch, nepoch_summary, nepoch_model, save_path, load_path)
