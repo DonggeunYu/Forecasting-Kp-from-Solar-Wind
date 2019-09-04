@@ -12,7 +12,8 @@ def kp():
         #print(int(time_split[0] + time_split[1] + time_split[2]))
         # time.append(int(time_split[0] + time_split[1] + time_split[2]))
         time.append(i)
-        kp.append([line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7]])
+        for i in range(0, 8):
+            kp.append(line[i])
 
         # if stop == 10000:
         # break
@@ -91,11 +92,11 @@ def solar_wind():
             # break
 
     output = []
-    for i in range(int(len(Np) / 24 / 60)):
-        output.append([Np[i * 24 * 60:(i+1) * 24 * 60], Tp[i * 24 * 60:(i+1) * 24 * 60],
-                       Vp[i * 24 * 60:(i+1) * 24 * 60], B_gsm_x[i * 24 * 60:(i+1) * 24 * 60],
-                       B_gsm_y[i * 24 * 60:(i+1) * 24 * 60], B_gsm_z[i * 24 * 60:(i+1) * 24 * 60],
-                       Bmag[i * 24 * 60:(i+1) * 24 * 60]])
+    for i in range(int(len(Np) / 3 / 60)):
+        output.append([Np[i * 3 * 60:(i+1) * 3 * 60], Tp[i * 3 * 60:(i+1) * 3 * 60],
+                       Vp[i * 3 * 60:(i+1) * 3 * 60], B_gsm_x[i * 3 * 60:(i+1) * 3 * 60],
+                       B_gsm_y[i * 3 * 60:(i+1) * 3 * 60], B_gsm_z[i * 3 * 60:(i+1) * 3 * 60],
+                       Bmag[i * 3 * 60:(i+1) * 3 * 60]])
 
     return output
 

@@ -7,8 +7,9 @@ from model.dense_model import Model
 from datasets import test_datasets
 from tensorboardX import SummaryWriter
 
-def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model, save_path, load_path):
-    train_loader = train_datasets()
+def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model, save_path, load_path,
+          batch_size, shuffle, numworkers):
+    train_loader = train_datasets(batch_size=batch_size, shuffle=shuffle, numworkers=numworkers)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(device)
@@ -103,8 +104,13 @@ if __name__ == "__main__":
     nepoch_summary = 100
     nepoch_model = 1000
 
+    batch_size = 256
+    shuffle = True
+    numworkers = 0
+
     save_path = "./output/"
     load_path = ""
     summary = SummaryWriter()
 
-    train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model, save_path, load_path)
+    train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model, save_path, load_path,
+          batch_size, shuffle, numworkers)
