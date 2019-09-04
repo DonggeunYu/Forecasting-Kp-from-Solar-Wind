@@ -108,5 +108,3 @@ def test_data():
     return solar_wind()[-365:], kp()[-365:]
     #return solar_wind()[:365], kp()[:365]
 
-x = solar_wind()
-print(x[0])

@@ -5,7 +5,6 @@ import torch.nn.functional as F
 class Model(nn.Module):
     def __init__(self):
         super(Model, self).__init__()
-        nn.Conv1d()
         self.L1 = nn.Linear(7 * 3 * 60, 3 * 60)
         self.B1 = nn.BatchNorm1d(3 * 60)
         self.L2 = nn.Linear(3 * 60, 60)
