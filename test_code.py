@@ -21,6 +21,5 @@ import torch
 from torch import nn
 
 a1 = Variable(torch.randn(32, 1))
-a2 = Variable(torch.randn(32, 1))
-x = torch.cat([a1, a2], dim=1)
-print(x.shape)
+a1 = a1.squeeze()
+print(a1.shape)

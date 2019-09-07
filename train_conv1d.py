@@ -99,7 +99,7 @@ def save_model(model, optimizer, learning_rate, epoch, save_path):
 
 
 if __name__ == "__main__":
-    learning_rate = 0.0001
+    learning_rate = 0.00002
 
     nepoch = 100000
     nepoch_summary_a = 500
