@@ -17,7 +17,7 @@ def kp():
 
         # if stop == 10000:
         # break
-
+    kp = kp[:2555]
     return kp
 
 def time_error(x, y):
@@ -31,7 +31,7 @@ def time_error(x, y):
 
 def solar_wind():
     Np, Tp, Vp, B_gsm_x, B_gsm_y, B_gsm_z, Bmag = [], [], [], [], [], [], []
-    for file in range(1999, 2014):
+    for file in range(1999, 2000):
         f = open(('data/solar-wind/ace_' + str(file) + '.csv'))
         stop = 0
 
@@ -108,3 +108,5 @@ def test_data():
     return solar_wind()[-365:], kp()[-365:]
     #return solar_wind()[:365], kp()[:365]
 
+x = kp()
+print(np.shape(x))
