@@ -102,7 +102,7 @@ if __name__ == "__main__":
     nepoch_summary = 100
     nepoch_model = 1000
 
-    batch_size = 2048
+    batch_size = 32
     shuffle = True
     numworkers = 0
 
