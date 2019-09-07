@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 import torch.nn as nn
 from torch.autograd import Variable
 
@@ -16,6 +17,10 @@ output, hidden = rnn(input, hidden)
 print(output.size())
 print(hidden.size())
 
-t4 = torch.rand(3, 1)
-t4 = t4.squeeze()
-print(t4.shape)
+import torch
+from torch import nn
+
+a1 = Variable(torch.randn(32, 1))
+a2 = Variable(torch.randn(32, 1))
+x = torch.cat([a1, a2], dim=1)
+print(x.shape)

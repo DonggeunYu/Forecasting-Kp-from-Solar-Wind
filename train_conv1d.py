@@ -3,7 +3,7 @@ import numpy as np
 import torch.nn as nn
 from torch.autograd import Variable
 from datasets import train_datasets
-from model.dense_model import Model
+from model.conv1d_model import Model
 from datasets import test_datasets
 from tensorboardX import SummaryWriter
 
