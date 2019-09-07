@@ -14,7 +14,7 @@ def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model,
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(device)
-    model = Model(180, 30, 1, batch_size, True, True, True)
+    model = Model(180, 256, 1, batch_size, True, True, True)
     hidden = model.init_hidden()
     model = model.to(device)
 
