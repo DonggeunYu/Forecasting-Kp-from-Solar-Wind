@@ -30,12 +30,12 @@ def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model,
 
     for epoch in range(sepoch, nepoch + 1):
         for i, data in enumerate(train_loader):
-            inputs, lables = data
-            inputs, lables = Variable(inputs).float().to(device), Variable(lables).float().to(device)
+            inputs, labels = data
+            inputs, labels = Variable(inputs).float().to(device), Variable(labels).float().to(device)
 
             y_pred = model(inputs)
 
-            loss = criterion(y_pred, lables)
+            loss = criterion(y_pred, labels)
             #print(epoch, i, loss.item())
 
             optimizer.zero_grad()
@@ -54,15 +54,15 @@ def accuracy(epoch, model):
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    inputs, lables = test_datasets()
-    inputs, lables = np.array(inputs), np.array(lables)
-    inputs, lables = torch.from_numpy(inputs), torch.from_numpy(lables)
-    inputs, lables = Variable(inputs).float().to(device), Variable(lables).float().to(device)
+    inputs, labels = test_datasets()
+    inputs, labels = np.array(inputs), np.array(labels)
+    inputs, labels = torch.from_numpy(inputs), torch.from_numpy(labels)
+    inputs, labels = Variable(inputs).float().to(device), Variable(labels).float().to(device)
 
     y_pred = model(inputs)
     y_pred = y_pred.round()
 
-    loss = torch.sqrt(criterion(y_pred, lables))
+    loss = torch.sqrt(criterion(y_pred, labels))
     print('Test Accuracy:', epoch, loss.item())
 
     write_summary_a(epoch, loss.item())
