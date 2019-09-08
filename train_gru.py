@@ -3,7 +3,7 @@ import numpy as np
 import torch.nn as nn
 from torch.autograd import Variable
 from datasets import train_datasets
-from model.dense_model import Model
+from model.gru_model import Model
 from datasets import test_datasets
 from tensorboardX import SummaryWriter
 
@@ -42,7 +42,7 @@ def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model,
             optimizer.step()
         if epoch % nepoch_summary_a == 0:
             accuracy(epoch, model)
-        if epoch % nepoch_summary == 0:  # 매 10 iteration마다
+        if epoch % nepoch_summary == 0: 
             write_summary(epoch, loss)
         if epoch % nepoch_model == 0:
             save_model(model, optimizer, learning_rate, epoch, save_path)
