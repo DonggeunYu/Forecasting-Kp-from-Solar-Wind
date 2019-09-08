@@ -135,7 +135,7 @@ if __name__ == "__main__":
     output = load_data()
     print('Load data')
 
-    model = load_model("output/iteration_2000.pth")
+    model = load_model("output/Conv1dv2/iteration_5000.pth")
     print('Load model')
 
     y_pred = input_model(model, output)
@@ -146,3 +146,8 @@ if __name__ == "__main__":
 
     accuracy = RMSE(y_pred, labels)
     print('RMSE: ', accuracy)
+
+    # conv1dv2_1
+    # 10000: 0.758
+    # 9000: 0.753
+    # 5000: 0.814
