@@ -25,13 +25,13 @@ class Model(nn.Module):
         self.B1 = nn.BatchNorm1d(30)
         self.L2 = nn.Linear(30, 1)
 
-    def forward(self, x, hidden):
+    def forward(self, x):
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        hidden = torch.zeros(self.num_layers * self.num_bidirectional, x.size(0), self.hidden_size).to(device)
+
         out, hidden = self.GRU(x, hidden)
         out = out[:, -1, :]
         out = F.relu(self.B1(self.L1(out)))
         out = self.L2(out)
         out = out.squeeze()
         return out
-
-    def init_hidden(self):
-        return Variable(torch.zeros(self.num_layers * self.num_bidirectional, self.batch_size, self.hidden_size))

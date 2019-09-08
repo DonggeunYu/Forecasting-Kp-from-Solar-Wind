@@ -62,7 +62,7 @@ def accuracy(epoch, model):
     y_pred = y_pred.round()
 
     loss = torch.sqrt(criterion(y_pred, lables))
-    print('Test Accuracy:', loss.item())
+    print('Test Accuracy:', epoch, loss.item())
 
     write_summary_a(epoch, loss.item())
 
