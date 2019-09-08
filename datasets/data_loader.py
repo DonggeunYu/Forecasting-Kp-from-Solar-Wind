@@ -17,7 +17,6 @@ def kp():
 
         # if stop == 10000:
         # break
-    kp = kp[:2555]
     return kp
 
 def time_error(x, y):
