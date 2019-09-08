@@ -51,7 +51,6 @@ class Model(nn.Module):
         C7_out = self.C7(C7_input)
         C7_out = C7_out.view(C7_out.shape[0], -1)
         C7_out = self.D7(C7_out)
-        print(C7_out.shape)
 
 
 
@@ -66,7 +65,7 @@ def make_sequential():
                         nn.BatchNorm1d(10),
                         nn.ReLU(),
                         nn.Conv1d(10, 20, 4, 2), # B, 20, 10
-                        nn.MaxPool1d(20, 2), # B, 20, 5
+                        nn.MaxPool1d(2, 2), # B, 20, 5
                         nn.BatchNorm1d(20),
                         nn.ReLU())
 
