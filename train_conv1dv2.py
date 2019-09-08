@@ -30,15 +30,15 @@ def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model,
     for epoch in range(sepoch, nepoch + 1):
         for i, data in enumerate(train_loader):
             inputs, labels = data
-            inputs, labels = Variable(inputs).float().to(device), Variable(labels).float().to(device)
+            inputs, labels = Variable(inputs).float().to(device), Variable(labels).long()
 
-            labels = labels.reshape(labels.size(0), 1)
             num_classes = 10
-            one_hot_target = (labels == torch.arange(num_classes).reshape(1, num_classes).float()).float()
+            labels = torch.eye(num_classes)[labels].to(device)
+            
 
             y_pred = model(inputs)
 
-            loss = criterion(y_pred, one_hot_target)
+            loss = criterion(y_pred, labels)
 
             optimizer.zero_grad()
             loss.backward()
