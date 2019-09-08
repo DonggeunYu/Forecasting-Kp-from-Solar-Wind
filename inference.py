@@ -2,7 +2,7 @@ import torch
 import numpy as np
 from torch.autograd import Variable
 from openpyxl import Workbook
-from model.dense_model import Model
+from model.conv1dv2_model import Model
 
 def time_error(x, y):
     x = int(x)
@@ -42,18 +42,18 @@ def load_data(file_path):
 
         turm = line_splite[0]
 
-    for i in range(int(len(Np) / 24 / 60)):
-        output.append([Np[i * 24 * 60:(i + 1) * 24 * 60], Tp[i * 24 * 60:(i + 1) * 24 * 60],
-                       Vp[i * 24 * 60:(i + 1) * 24 * 60], B_gsm_x[i * 24 * 60:(i + 1) * 24 * 60],
-                       B_gsm_y[i * 24 * 60:(i + 1) * 24 * 60], B_gsm_z[i * 24 * 60:(i + 1) * 24 * 60],
-                       Bmag[i * 24 * 60:(i + 1) * 24 * 60]])
+    for i in range(int(len(Np) / 3 / 60)):
+        output.append([Np[i * 3 * 60:(i+1) * 3 * 60], Tp[i * 3 * 60:(i+1) * 3 * 60],
+                       Vp[i * 3 * 60:(i+1) * 3 * 60], B_gsm_x[i * 3 * 60:(i+1) * 3 * 60],
+                       B_gsm_y[i * 3 * 60:(i+1) * 3 * 60], B_gsm_z[i * 3 * 60:(i+1) * 3 * 60],
+                       Bmag[i * 3 * 60:(i+1) * 3 * 60]])
 
     return output
 
 def load_model(file_path):
     model = Model()
 
-    load_dict = torch.load(file_path)
+    load_dict = torch.load(file_path, map_location='cpu')
     model.load_state_dict(load_dict['model'])
 
     return model
@@ -64,8 +64,9 @@ def input_model(model, output):
     output = Variable(output).float()
 
     y_pred = model(output)
-    y_pred = y_pred.round()
-    y_pred = y_pred.detach().numpy()
+    y_pred = np.argmax(y_pred.detach(), axis=1)
+
+    y_pred = y_pred.numpy()
 
     return y_pred
 
@@ -73,17 +74,24 @@ def save_excel(y_pred):
     write_wb = Workbook()
     write_ws = write_wb.active
 
-    for i, line in enumerate(y_pred):
-        for j in range(0, 8):
-            write_ws.cell(i + 1, j + 1, line[j])
+    i = 0
+    j = 0
+
+    for index in y_pred:
+        write_ws.cell(i + 1, j + 1, index)
+        j += 1
+        if j == 8:
+            i += 1
+            j = 0
 
     write_wb.save('output.xlsx')
 
 if __name__ == "__main__":
+
     output = load_data("data/problem.csv")
     print('Load data')
 
-    model = load_model("output/Download.pth")
+    model = load_model("output/iteration_2000.pth")
     print('Load model')
 
     y_pred = input_model(model, output)
