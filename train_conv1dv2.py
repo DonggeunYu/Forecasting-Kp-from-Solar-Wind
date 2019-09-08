@@ -38,7 +38,7 @@ def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model,
             y_pred = model(inputs)
 
             loss = criterion(y_pred, labels)
-
+            #print(epoch, loss)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -103,14 +103,14 @@ def save_model(model, optimizer, learning_rate, epoch, save_path):
 
 
 if __name__ == "__main__":
-    learning_rate = 0.00001
+    learning_rate = 0.0001
 
     nepoch = 100000
     nepoch_summary_a = 500
     nepoch_summary = 100
     nepoch_model = 1000
 
-    batch_size = 2048
+    batch_size = 512
     shuffle = True
     numworkers = 0
 
