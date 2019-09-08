@@ -6,7 +6,7 @@ from datasets import train_datasets
 from model.gru_model import Model
 from datasets import test_datasets
 from tensorboardX import SummaryWriter
-
+from time import localtime, strftime
 
 def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model, save_path, load_path,
           batch_size, shuffle, numworkers):
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
     save_path = "./output/"
     load_path = ""
-    summary = SummaryWriter()
+    summary = SummaryWriter('runs/' + 'gru_' + strftime("%Y-%m-%d-%H-%M/", localtime()))
 
     train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model, save_path, load_path,
           batch_size, shuffle, numworkers)
