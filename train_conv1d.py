@@ -35,7 +35,7 @@ def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model,
             y_pred = model(inputs)
 
             loss = criterion(y_pred, lables)
-            print(epoch, i, loss.item())
+            #print(epoch, i, loss.item())
 
             optimizer.zero_grad()
             loss.backward()
@@ -69,12 +69,12 @@ def accuracy(epoch, model):
 
 def write_summary_a(epoch, loss):
     summary.add_scalar('Accuracy/Accuracy', loss, epoch)
-    print("Write Summary")
+    #print("Write Summary")
 
 
 def write_summary(epoch, loss):
     summary.add_scalar('Loss/Loss', loss.item(), epoch)
-    print("Write Summary")
+    #print("Write Summary")
 
 
 def load_model(load_path, model, optimizer):
@@ -99,7 +99,7 @@ def save_model(model, optimizer, learning_rate, epoch, save_path):
 
 
 if __name__ == "__main__":
-    learning_rate = 0.00002
+    learning_rate = 0.00001
 
     nepoch = 100000
     nepoch_summary_a = 500
