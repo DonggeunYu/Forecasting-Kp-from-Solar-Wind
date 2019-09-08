@@ -135,7 +135,7 @@ if __name__ == "__main__":
     output = load_data()
     print('Load data')
 
-    model = load_model("output/Conv1dv2/iteration_5000.pth")
+    model = load_model("output/Conv1dv2_2/iteration_1000.pth")
     print('Load model')
 
     y_pred = input_model(model, output)

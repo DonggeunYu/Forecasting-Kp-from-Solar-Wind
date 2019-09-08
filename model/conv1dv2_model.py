@@ -20,19 +20,19 @@ class Model(nn.Module):
         return C1_out
 
 def make_sequential():
-    cnn = nn.Sequential(nn.Conv1d(7, 20, 8, 4), # B, 10, 44
+    cnn = nn.Sequential(nn.Conv1d(7, 10, 8, 4), # B, 10, 44
                         nn.MaxPool1d(2, 2), # B, 10, 22
-                        nn.BatchNorm1d(20),
+                        nn.BatchNorm1d(10),
                         nn.ReLU(),
-                        nn.Conv1d(20, 50, 4, 2), # B, 20, 10
+                        nn.Conv1d(10, 20, 4, 2), # B, 20, 10
                         nn.MaxPool1d(2, 2), # B, 20, 5
-                        nn.BatchNorm1d(50),
+                        nn.BatchNorm1d(20),
                         nn.ReLU())
 
-    linear = nn.Sequential(nn.Linear(50 * 5, 100),
-                            nn.BatchNorm1d(100),
+    linear = nn.Sequential(nn.Linear(20 * 5, 50),
+                            nn.BatchNorm1d(50),
                             nn.ReLU(),
-                            nn.Linear(100, 10))
+                            nn.Linear(50, 10))
 
     #cnn = nn.Sequential(nn.Conv1d(7, 20, 8, 4), # B, 10, 44
                         #nn.MaxPool1d(2, 2), # B, 10, 22
