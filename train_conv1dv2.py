@@ -34,7 +34,6 @@ def train(learning_rate, nepoch, nepoch_summary_a, nepoch_summary, nepoch_model,
 
             num_classes = 10
             labels = torch.eye(num_classes)[labels].to(device)
-            
 
             y_pred = model(inputs)
 
@@ -59,14 +58,12 @@ def accuracy(epoch, model):
     inputs, labels = test_datasets()
     inputs, labels = np.array(inputs), np.array(labels)
     inputs, labels = torch.from_numpy(inputs), torch.from_numpy(labels)
-    inputs, labels = Variable(inputs).float().to(device), Variable(labels).float().to(device)
+    inputs, labels = Variable(inputs).float().to(device), Variable(labels).long()
+
+    num_classes = 10
+    labels = torch.eye(num_classes)[labels].to(device)
 
     y_pred = model(inputs)
-
-    _, y_pred = torch.max(y_pred, 1)
-    y_pred = y_pred.float().to(device)
-
-    y_pred = y_pred.round()
 
     loss = torch.sqrt(criterion(y_pred, labels))
     print('Test Accuracy:', epoch, loss.item())
