@@ -94,7 +94,7 @@ def load_model(load_path, model, optimizer):
 
 
 def save_model(model, optimizer, learning_rate, epoch, save_path):
-    save_path = save_path + 'iteration_conv1dv2_2_' + str(epoch) + '.pth'
+    save_path = save_path + 'iteration_conv1dv2n_2_' + str(epoch) + '.pth'
     torch.save({'model': model.state_dict(),
                 'optimizer': optimizer,
                 'learning_rate': learning_rate,
