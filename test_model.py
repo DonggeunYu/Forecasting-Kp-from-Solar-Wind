@@ -131,7 +131,7 @@ def RMSE(y_pred, labels):
     return np.sqrt(((y_pred - labels) ** 2).mean())
 
 if __name__ == "__main__":
-    model = load_model("output/Conv1dv2_1/iteration_9000.pth")
+    model = load_model("output/iteration_conv1dv2_120000.pth")
     print('Load model')
 
     output = load_data()
