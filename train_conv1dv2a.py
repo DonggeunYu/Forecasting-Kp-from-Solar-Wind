@@ -3,7 +3,7 @@ import numpy as np
 import torch.nn as nn
 from torch.autograd import Variable
 from datasets import train_datasets
-from model.conv1dv2_model import Model
+from model.conv1dv2a_model import Model
 from datasets import test_datasets
 from tensorboardX import SummaryWriter
 from time import localtime, strftime
@@ -94,7 +94,7 @@ def load_model(load_path, model, optimizer):
 
 
 def save_model(model, optimizer, learning_rate, epoch, save_path):
-    save_path = save_path + 'iteration_conv1dv2_2_' + str(epoch) + '.pth'
+    save_path = save_path + 'iteration_conv1dv2a_5_' + str(epoch) + '.pth'
     torch.save({'model': model.state_dict(),
                 'optimizer': optimizer,
                 'learning_rate': learning_rate,
@@ -103,7 +103,7 @@ def save_model(model, optimizer, learning_rate, epoch, save_path):
 
 
 if __name__ == "__main__":
-    learning_rate = 0.0001
+    learning_rate = 0.00001
 
     nepoch = 100000
     nepoch_summary_a = 500

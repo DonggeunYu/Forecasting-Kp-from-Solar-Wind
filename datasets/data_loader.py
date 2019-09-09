@@ -106,7 +106,7 @@ def train_data():
     #return solar_wind()[:365], kp()[:365]
 
 def test_data():
-    return solar_wind()[-365:], kp()[-365:]
+    return solar_wind()[-2920:], kp()[-2920:]
     #return solar_wind()[:365], kp()[:365]
 
 x = kp()
