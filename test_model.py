@@ -17,7 +17,7 @@ def time_error(x, y):
 
 def load_data():
     Np, Tp, Vp, B_gsm_x, B_gsm_y, B_gsm_z, Bmag = [], [], [], [], [], [], []
-    for file in range(1999, 2014):
+    for file in range(2013, 2014):
         f = open(('data/solar-wind/ace_' + str(file) + '.csv'))
         stop = 0
 
@@ -104,7 +104,7 @@ def kp():
 
         # if stop == 10000:
         # break
-    #kp = kp[:2555]
+    kp = kp[-2920:]
     return kp
 
 def load_model(file_path):
@@ -131,7 +131,7 @@ def RMSE(y_pred, labels):
     return np.sqrt(((y_pred - labels) ** 2).mean())
 
 if __name__ == "__main__":
-    model = load_model("output/iteration_conv1dv2_120000.pth")
+    model = load_model("output/iteration_conv1dv2_2_1000.pth")
     print('Load model')
 
     output = load_data()

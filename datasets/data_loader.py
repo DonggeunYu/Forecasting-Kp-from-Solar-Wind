@@ -29,6 +29,15 @@ def time_error(x, y):
     else:
         return 59 - y + x
 
+def normalization(arr):
+    min = np.min(arr)
+    max = np.max(arr)
+    temp = []
+    for i in arr:
+        temp.append((i - min) / (max - min))
+
+    return temp
+
 def solar_wind():
     Np, Tp, Vp, B_gsm_x, B_gsm_y, B_gsm_z, Bmag = [], [], [], [], [], [], []
     for file in range(1999, 2014):
@@ -90,6 +99,14 @@ def solar_wind():
 
             # if i == 100:
             # break
+
+    Np = normalization(Np)
+    Tp = normalization(Tp)
+    Vp = normalization(Vp)
+    B_gsm_x = normalization(B_gsm_x)
+    B_gsm_y = normalization(B_gsm_y)
+    B_gsm_z = normalization(B_gsm_z)
+    Bmag = normalization(Bmag)
 
     output = []
     for i in range(int(len(Np) / 3 / 60)):
